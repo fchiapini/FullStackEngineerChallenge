@@ -1,0 +1,14 @@
+*.db
+
+dist/
+build/
+*.egg-info/
+
+node_modules
+database.sqlite3
+
+*.cert
+*.key
+
+.env
+.env.test
