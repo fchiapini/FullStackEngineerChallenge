@@ -58,7 +58,7 @@ module.exports = {
     return await db.sequelize.transaction(async (t) => {
       try {
         const employee = await db.employee.findByPk(id)
-        employee.destroy()
+        if (employee) employee.destroy()
       } catch (e) {
         throw new Error(e.message)
       }

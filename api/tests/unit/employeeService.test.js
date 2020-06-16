@@ -1,71 +1,58 @@
 const employeeService = require('../../services/employeeService')
+const testUtils = require('./testUtils')
+
+beforeEach(async () => {
+  await testUtils.truncateDatabase()
+})
+
+function buildEmployee() {
+  return {
+    first_name: 'Felipe',
+    last_name: 'Chiapini',
+    position: 'Software Engineer',
+    email: 'felipe@example.com',
+    password_hash: '123456',
+  }
+}
 
 describe('Create', () => {
-  it('should create employee with valid parameters', async () => {
-    const newEmployee = {
-      first_name: 'Felipe',
-      last_name: 'Chiapini',
-      position: 'Software Engineer',
-      email: 'felipe@example.com',
-      password_hash: '123456',
-    }
-
-    await employeeService.create(newEmployee)
-    const savedEmployee = await employeeService.findEmployeeByEmail(
-      newEmployee.email
-    )
-
-    expect(savedEmployee.email).toBe(newEmployee.email)
+  test('should create employee with valid parameters', async () => {
+    const newEmployee = buildEmployee()
+    const createdEmployee = await employeeService.create(newEmployee)
+    expect(createdEmployee.email).toBe(newEmployee.email)
   })
 })
 
 describe('Update', () => {
-  it('should update employee with valid parameters', async () => {
-    const newEmployee = {
-      first_name: 'Felipe',
-      last_name: 'Chiapini',
-      position: 'Software Engineer',
-      email: 'felipe2@example.com',
-      password_hash: '123456',
-    }
+  test('should update employee with valid parameters', async () => {
+    const employee = buildEmployee()
+    const employeeToBeUpdated = await employeeService.create(employee)
 
-    await employeeService.create(newEmployee)
-    const updateEmployee = await employeeService.findEmployeeByEmail(
-      newEmployee.email
-    )
-
-    await employeeService.update(updateEmployee.id, {
-      first_name: 'Philip',
-      last_name: 'Chiapini',
-      position: 'Tech Lead',
-      email: 'philip@example.com',
-      password_hash: '12345678910',
-    })
-
-    const updatedEmployee = await employeeService.findEmployeeByEmail(
-      'philip@example.com'
+    const updatedEmployee = await employeeService.update(
+      employeeToBeUpdated.id,
+      {
+        first_name: 'Philip',
+        last_name: 'Chiapini',
+        position: 'Tech Lead',
+        email: 'philip@example.com',
+        password_hash: '12345678910',
+      }
     )
 
     expect(updatedEmployee.first_name).toBe('Philip')
+    expect(updatedEmployee.last_name).toBe('Chiapini')
+    expect(updatedEmployee.position).toBe('Tech Lead')
+    expect(updatedEmployee.email).toBe('philip@example.com')
+    expect(updatedEmployee.password_hash).toBe('12345678910')
   })
 })
 
 describe('Delete', () => {
-  it('should delete employee with valid id', async () => {
-    const employeeToBeDeleted = {
-      first_name: 'Felipe',
-      last_name: 'Chiapini',
-      position: 'Software Engineer',
-      email: 'felipe3@example.com',
-      password_hash: '123456',
-    }
+  test('should delete employee with valid id', async () => {
+    const employee = buildEmployee()
+    const employeeToBeDeleted = await employeeService.create(employee)
 
-    await employeeService.create(employeeToBeDeleted)
-    const savedEmployee = await employeeService.findEmployeeByEmail(
-      employeeToBeDeleted.email
-    )
-
-    await employeeService.delete(savedEmployee.id)
+    await employeeService.delete(employeeToBeDeleted.id)
 
     const deletedEmployee = await employeeService.findEmployeeById(
       employeeToBeDeleted.id
