@@ -1,9 +1,9 @@
-const reviewService = require('../../services/reviewService')
-const employeeService = require('../../services/employeeService')
-const testUtils = require('./testUtils')
+import reviewService from '../../services/reviewService'
+import employeeService from '../../services/employeeService'
+import { truncateDatabase } from './testUtils'
 
 beforeEach(async () => {
-  await testUtils.truncateDatabase()
+  await truncateDatabase()
 })
 
 function buildReviewer() {
@@ -27,7 +27,7 @@ function buildReviewee() {
 }
 
 describe('Create', () => {
-  test('should create a review with valid parameters', async () => {
+  it('should create a review with valid parameters', async () => {
     const reviewer = buildReviewer()
     const reviewee = buildReviewee()
 
@@ -50,7 +50,7 @@ describe('Create', () => {
 })
 
 describe('Update', () => {
-  test('should update feedback from review with valid parameters', async () => {
+  it('should update feedback from review with valid parameters', async () => {
     const reviewer = buildReviewer()
     const reviewee = buildReviewee()
 
@@ -78,7 +78,7 @@ describe('Update', () => {
 })
 
 describe('Delete', () => {
-  test('should delete review with valid id', async () => {
+  it('should delete review with valid id', async () => {
     const reviewer = buildReviewer()
     const reviewee = buildReviewee()
 

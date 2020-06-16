@@ -1,8 +1,8 @@
-const employeeService = require('../../services/employeeService')
-const testUtils = require('./testUtils')
+import employeeService from '../../services/employeeService'
+import { truncateDatabase } from './testUtils'
 
 beforeEach(async () => {
-  await testUtils.truncateDatabase()
+  await truncateDatabase()
 })
 
 function buildEmployee() {
@@ -16,7 +16,7 @@ function buildEmployee() {
 }
 
 describe('Create', () => {
-  test('should create employee with valid parameters', async () => {
+  it('should create employee with valid parameters', async () => {
     const newEmployee = buildEmployee()
     const createdEmployee = await employeeService.create(newEmployee)
     expect(createdEmployee.email).toBe(newEmployee.email)
@@ -24,7 +24,7 @@ describe('Create', () => {
 })
 
 describe('Update', () => {
-  test('should update employee with valid parameters', async () => {
+  it('should update employee with valid parameters', async () => {
     const employee = buildEmployee()
     const employeeToBeUpdated = await employeeService.create(employee)
 
@@ -48,7 +48,7 @@ describe('Update', () => {
 })
 
 describe('Delete', () => {
-  test('should delete employee with valid id', async () => {
+  it('should delete employee with valid id', async () => {
     const employee = buildEmployee()
     const employeeToBeDeleted = await employeeService.create(employee)
 

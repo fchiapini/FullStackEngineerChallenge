@@ -1,6 +1,6 @@
-const db = require('../database/models')
+import db from '../database/models'
 
-module.exports = {
+export default {
   async findReviewById(id) {
     return await db.sequelize.transaction(async (t) => {
       return await db.review.findByPk(id)
