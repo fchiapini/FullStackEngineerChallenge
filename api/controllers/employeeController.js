@@ -15,7 +15,9 @@ export default {
   async createEmployee(req, res) {
     const newEmployee = req.body
     try {
-      employeeService.create(newEmployee).then((post) => res.json(post))
+      employeeService
+        .create(newEmployee)
+        .then((createdEmployee) => res.json(createdEmployee))
     } catch (error) {
       res.sendStatus(500, error)
     }
@@ -24,7 +26,17 @@ export default {
     const { id } = req.params
     const updatedEmployee = req.body
     try {
-      employeeService.update(id, updatedEmployee).then((post) => res.json(post))
+      employeeService
+        .update(id, updatedEmployee)
+        .then((employee) => res.json(employee))
+    } catch (error) {
+      res.sendStatus(500, error)
+    }
+  },
+  async deleteEmployee(req, res) {
+    const { id } = req.params
+    try {
+      employeeService.delete(id).then(() => res.sendStatus(200))
     } catch (error) {
       res.sendStatus(500, error)
     }

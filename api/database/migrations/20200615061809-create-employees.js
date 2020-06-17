@@ -9,11 +9,7 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
-      first_name: {
-        type: Sequelize.STRING(255),
-        allowNull: false,
-      },
-      last_name: {
+      name: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },

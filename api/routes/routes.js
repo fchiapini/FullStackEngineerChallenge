@@ -9,4 +9,6 @@ routes.post('/employees', employeeController.createEmployee)
 
 routes.put('/employees/:id', employeeController.updateEmployee)
 
+routes.delete('/employees/:id', employeeController.deleteEmployee)
+
 export default routes

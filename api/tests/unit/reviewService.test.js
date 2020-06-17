@@ -8,8 +8,7 @@ beforeEach(async () => {
 
 function buildReviewer() {
   return {
-    first_name: 'Felipe',
-    last_name: 'Chiapini',
+    name: 'Felipe Chiapini',
     position: 'Software Engineer',
     email: 'felipe5@example.com',
     password_hash: '123456',
@@ -18,8 +17,7 @@ function buildReviewer() {
 
 function buildReviewee() {
   return {
-    first_name: 'Paul',
-    last_name: 'Johnson',
+    name: 'Paul Johnson',
     position: 'Software Engineer',
     email: 'john@example.com',
     password_hash: '123456',

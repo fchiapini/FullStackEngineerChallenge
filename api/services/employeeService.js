@@ -24,12 +24,11 @@ export default {
       }
     })
   },
-  async create({ first_name, last_name, position, email, password_hash }) {
+  async create({ name, position, email, password_hash }) {
     return await db.sequelize.transaction(async (t) => {
       try {
         return await db.employee.create({
-          first_name: first_name,
-          last_name: last_name,
+          name: name,
           position: position,
           email: email,
           password_hash: password_hash,
@@ -39,12 +38,11 @@ export default {
       }
     })
   },
-  async update(id, { first_name, last_name, position, email, password_hash }) {
+  async update(id, { name, position, email, password_hash }) {
     return await db.sequelize.transaction(async (t) => {
       try {
         const employee = await db.employee.findByPk(id)
-        employee.first_name = first_name
-        employee.last_name = last_name
+        employee.name = name
         employee.position = position
         employee.email = email
         employee.password_hash = password_hash

@@ -24,5 +24,9 @@ export default {
 
   update(employee) {
     return apiClient.put(`/employees/${employee.id}`, employee)
+  },
+
+  delete(id) {
+    return apiClient.delete(`/employees/${id}`)
   }
 }

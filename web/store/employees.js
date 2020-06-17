@@ -11,6 +11,21 @@ export const mutations = {
   },
   SET_EMPLOYEE(state, employee) {
     state.employee = employee
+  },
+  ADD_EMPLOYEE(state, employee) {
+    state.employees.push(employee)
+  },
+  UPDATE_EMPLOYEE(state, updatedEmployee) {
+    const editedIndex = state.employees.findIndex(
+      (employee) => employee.id === updatedEmployee.id
+    )
+    Object.assign(state.employees[editedIndex], updatedEmployee)
+  },
+  DELETE_EMPLOYEE(state, deletedEmployee) {
+    const deletedIndex = state.employees.findIndex(
+      (employee) => employee.id === deletedEmployee.id
+    )
+    state.employees.splice(deletedIndex, 1)
   }
 }
 
@@ -23,6 +38,21 @@ export const actions = {
   fetchEvent({ commit }, id) {
     return EmployeeService.getEmployee(id).then((response) => {
       commit('SET_EMPLOYEE', response.data)
+    })
+  },
+  createEmployee({ commit }, newEmployee) {
+    return EmployeeService.create(newEmployee).then((response) => {
+      commit('ADD_EMPLOYEE', response.data)
+    })
+  },
+  updateEmployee({ commit }, updatedEmployee) {
+    return EmployeeService.update(updatedEmployee).then((response) => {
+      commit('UPDATE_EMPLOYEE', response.data)
+    })
+  },
+  deleteEmployee({ commit }, deletedEmployee) {
+    return EmployeeService.delete(deletedEmployee.id).then((response) => {
+      commit('DELETE_EMPLOYEE', deletedEmployee)
     })
   }
 }

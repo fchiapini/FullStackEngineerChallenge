@@ -7,8 +7,7 @@ beforeEach(async () => {
 
 function buildEmployee() {
   return {
-    first_name: 'Felipe',
-    last_name: 'Chiapini',
+    name: 'Felipe Chiapini',
     position: 'Software Engineer',
     email: 'felipe@example.com',
     password_hash: '123456',
@@ -31,16 +30,14 @@ describe('Update', () => {
     const updatedEmployee = await employeeService.update(
       employeeToBeUpdated.id,
       {
-        first_name: 'Philip',
-        last_name: 'Chiapini',
+        name: 'Philip Chiapini',
         position: 'Tech Lead',
         email: 'philip@example.com',
         password_hash: '12345678910',
       }
     )
 
-    expect(updatedEmployee.first_name).toBe('Philip')
-    expect(updatedEmployee.last_name).toBe('Chiapini')
+    expect(updatedEmployee.name).toBe('Philip Chiapini')
     expect(updatedEmployee.position).toBe('Tech Lead')
     expect(updatedEmployee.email).toBe('philip@example.com')
     expect(updatedEmployee.password_hash).toBe('12345678910')
