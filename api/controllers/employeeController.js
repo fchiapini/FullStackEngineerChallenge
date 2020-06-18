@@ -12,6 +12,18 @@ export default {
       })
     }
   },
+  async getEmployeeById(req, res) {
+    try {
+      const { id } = req.params
+      const result = await employeeService.findEmployeeById(id)
+      res.json(result)
+    } catch (error) {
+      res.status(500).json({
+        status: 'fail',
+        message: error,
+      })
+    }
+  },
   async createEmployee(req, res) {
     const newEmployee = req.body
     try {

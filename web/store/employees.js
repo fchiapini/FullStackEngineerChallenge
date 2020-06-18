@@ -35,8 +35,8 @@ export const actions = {
       commit('SET_EMPLOYEES', response.data)
     })
   },
-  fetchEvent({ commit }, id) {
-    return EmployeeService.getEmployee(id).then((response) => {
+  fetchEmployee({ commit }, id) {
+    return EmployeeService.getEmployeeById(id).then((response) => {
       commit('SET_EMPLOYEE', response.data)
     })
   },

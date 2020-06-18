@@ -18,12 +18,12 @@ export default {
     return apiClient.get(`/reviews/${id}`)
   },
 
-  getReviewsByEmployeeIdAsReviewer(employeeId) {
-    return apiClient.get(`/employees/${id}/reviewer-reviews`)
+  getReviewsByEmployeeIdAsReviewee(id) {
+    return apiClient.get(`/employees/${id}/reviewee-reviews`)
   },
 
-  getReviewsByEmployeeIdAsReviewee(employeeId) {
-    return apiClient.get(`/employees/${id}/reviewee-reviews`)
+  getReviewsByEmployeeIdAsReviewer(id) {
+    return apiClient.get(`/employees/${id}/reviewer-reviews`)
   },
 
   create(review) {

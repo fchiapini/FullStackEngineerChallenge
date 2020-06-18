@@ -3,6 +3,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Review = sequelize.define('review', {
     feedback: DataTypes.STRING,
+    is_reviewed: DataTypes.BOOLEAN,
   })
 
   Review.associate = function (models) {

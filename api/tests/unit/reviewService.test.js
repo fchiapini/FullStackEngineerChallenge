@@ -35,11 +35,11 @@ describe('Create', () => {
     const savedReviewer = await employeeService.create(reviewer)
     const savedReviewee = await employeeService.create(reviewee)
 
-    const createdReview = await reviewService.create(
-      feedback,
-      savedReviewer.id,
-      savedReviewee.id
-    )
+    const createdReview = await reviewService.create({
+      feedback: feedback,
+      reviewer_id: savedReviewer.id,
+      reviewee_id: savedReviewee.id,
+    })
 
     expect(createdReview.feedback).toBe(feedback)
     expect(createdReview.reviewer_id).toBe(savedReviewer.id)
@@ -58,11 +58,11 @@ describe('Update', () => {
     const savedReviewer = await employeeService.create(reviewer)
     const savedReviewee = await employeeService.create(reviewee)
 
-    const reviewToBeUpdated = await reviewService.create(
-      feedback,
-      savedReviewer.id,
-      savedReviewee.id
-    )
+    const reviewToBeUpdated = await reviewService.create({
+      feedback: feedback,
+      reviewer_id: savedReviewer.id,
+      reviewee_id: savedReviewee.id,
+    })
 
     const newFeedback = 'Great communication and strong opinion.'
 
@@ -86,11 +86,11 @@ describe('Delete', () => {
     const savedReviewer = await employeeService.create(reviewer)
     const savedReviewee = await employeeService.create(reviewee)
 
-    const reviewToBeDeleted = await reviewService.create(
-      feedback,
-      savedReviewer.id,
-      savedReviewee.id
-    )
+    const reviewToBeDeleted = await reviewService.create({
+      feedback: feedback,
+      reviewer_id: savedReviewer.id,
+      reviewee_id: savedReviewee.id,
+    })
 
     await reviewService.delete(reviewToBeDeleted.id)
 

@@ -54,9 +54,7 @@
                   </v-text-field>
                   <v-spacer></v-spacer>
                   <v-btn color="red darken-1" text @click="close">Cancel</v-btn>
-                  <v-btn color="green darken-1" text type="submit"
-                    >Create</v-btn
-                  >
+                  <v-btn color="blue darken-1" text type="submit">Save</v-btn>
                 </v-form>
               </v-card-text>
             </v-card>
@@ -70,6 +68,15 @@
         <v-icon small @click="deleteItem(item)">
           mdi-delete
         </v-icon>
+
+        <v-btn
+          nuxt
+          :to="'/admin/employee/' + item.id"
+          color="blue darken-1"
+          text
+        >
+          Reviews
+        </v-btn>
       </template>
     </v-data-table>
   </v-container>
