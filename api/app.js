@@ -1,4 +1,5 @@
 import express from 'express'
+import authRoutes from './routes/auth'
 import routes from './routes/routes'
 import bodyParser from 'body-parser'
 import cors from 'cors'
@@ -13,6 +14,7 @@ const HOST = process.env.HOST
 const app = express()
 app.use(bodyParser.json())
 app.use(cors())
+app.use('/api', authRoutes)
 app.use('/api', routes)
 
 app.get('/', (req, res) => res.send('Welcome to Performance Review!'))
