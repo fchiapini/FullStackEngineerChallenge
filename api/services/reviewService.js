@@ -1,4 +1,5 @@
 import db from '../database/models'
+const { Op } = require('sequelize')
 
 export default {
   async findReviewById(id) {
@@ -7,11 +8,11 @@ export default {
         include: [
           {
             association: 'reviewer',
-            attributes: ['id', 'name', 'position', 'email'],
+            attributes: { exclude: ['password_hash'] },
           },
           {
             association: 'reviewee',
-            attributes: ['id', 'name', 'position', 'email'],
+            attributes: { exclude: ['password_hash'] },
           },
         ],
       })
@@ -20,7 +21,18 @@ export default {
   async findAllReviews() {
     return await db.sequelize.transaction(async (t) => {
       try {
-        return await db.review.findAll()
+        return await db.review.findAll({
+          include: [
+            {
+              association: 'reviewer',
+              attributes: { exclude: ['password_hash'] },
+            },
+            {
+              association: 'reviewee',
+              attributes: { exclude: ['password_hash'] },
+            },
+          ],
+        })
       } catch (e) {
         throw new Error(e.message)
       }
@@ -33,15 +45,16 @@ export default {
           include: [
             {
               association: 'reviewer',
-              attributes: ['id', 'name', 'position', 'email'],
+              attributes: { exclude: ['password_hash'] },
             },
             {
               association: 'reviewee',
-              attributes: ['id', 'name', 'position', 'email'],
+              attributes: { exclude: ['password_hash'] },
             },
           ],
-          order: [['updatedAt', 'DESC']],
-          where: { reviewer_id: id },
+          where: {
+            [Op.and]: [{ reviewer_id: id }, { is_reviewed: false }],
+          },
         })
       } catch (e) {
         throw new Error(e.message)
@@ -55,11 +68,11 @@ export default {
           include: [
             {
               association: 'reviewer',
-              attributes: ['id', 'name', 'position', 'email'],
+              attributes: { exclude: ['password_hash'] },
             },
             {
               association: 'reviewee',
-              attributes: ['id', 'name', 'position', 'email'],
+              attributes: { exclude: ['password_hash'] },
             },
           ],
           order: [['updatedAt', 'DESC']],
@@ -71,7 +84,6 @@ export default {
     })
   },
   async create({ feedback, reviewer_id, reviewee_id }) {
-    console.log('Reviewer: ' + reviewer_id)
     return await db.sequelize.transaction(async (t) => {
       try {
         const created = await db.review.create({
@@ -92,7 +104,10 @@ export default {
         const review = await db.review.findByPk(id)
         review.reviewer_id = reviewer_id
         review.feedback = feedback
-        review.isReviewed = true
+
+        if (feedback) review.is_reviewed = true
+        else review.is_reviewed = false
+
         return await review.save()
       } catch (e) {
         throw new Error(e.message)

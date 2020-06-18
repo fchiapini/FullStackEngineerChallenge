@@ -3,13 +3,17 @@
     <v-data-table
       :headers="headers"
       :items="reviews"
+      no-data-text="No reviews!"
       sort-by="name"
       class="elevation-1"
     >
       <template v-slot:top>
         <v-toolbar flat color="white">
           <v-toolbar-title>Reviews for: {{ employee.name }}</v-toolbar-title>
-          <v-divider class="mx-4" inset vertical></v-divider>
+          <v-spacer></v-spacer>
+          <v-btn icon nuxt :to="'/admin'">
+            <v-icon>mdi-home</v-icon>
+          </v-btn>
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
@@ -47,6 +51,15 @@
             </v-card>
           </v-dialog>
         </v-toolbar>
+      </template>
+      <template v-slot:item.createdAt="{ item }">
+        {{ item.createdAt | date }}
+      </template>
+      <template v-slot:item.updatedAt="{ item }">
+        {{ item.updatedAt | date }}
+      </template>
+      <template v-slot:item.is_reviewed="{ item }">
+        {{ item.is_reviewed ? 'Yes' : 'No' }}
       </template>
       <template v-slot:item.actions="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)">
@@ -94,8 +107,8 @@ export default {
       editedIndex: -1,
       editedReview: {
         feedback: '',
-        reviewer_id: '',
-        reviewee_id: ''
+        reviewer_id: -1,
+        reviewee_id: -1
       }
     }
   },
@@ -163,12 +176,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.truncate {
-  max-width: 1px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-</style>

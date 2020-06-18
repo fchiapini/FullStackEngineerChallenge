@@ -54,9 +54,10 @@ export const actions = {
       commit('UPDATE_REVIEW_AS_REVIEWEE', response.data)
     })
   },
-  updateReviewAsReviewer({ commit }, updatedReview) {
+  updateReviewAsReviewer({ dispatch, commit }, updatedReview) {
     return ReviewService.update(updatedReview).then((response) => {
       commit('UPDATE_REVIEW_AS_REVIEWER', response.data)
+      dispatch('fetchReviewsAsReviewer', updatedReview.reviewer.id)
     })
   }
 }

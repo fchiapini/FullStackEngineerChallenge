@@ -1,7 +1,6 @@
 import express from 'express'
 import employeeController from '../controllers/employeeController'
 import reviewController from '../controllers/reviewController'
-import employeeService from '../services/employeeService'
 
 const routes = express.Router()
 

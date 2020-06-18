@@ -9,7 +9,9 @@ export default {
   async findAllEmployees() {
     return await db.sequelize.transaction(async (t) => {
       try {
-        return await db.employee.findAll()
+        return await db.employee.findAll({
+          order: [['name', 'ASC']],
+        })
       } catch (e) {
         throw new Error(e.message)
       }
