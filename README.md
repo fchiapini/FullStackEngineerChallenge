@@ -55,7 +55,7 @@ Create a mysql database and configure the .env file with the database informatio
 
 ```bash
 # install dependencies
-$npm install
+$ npm install
 
 # At /api folder run migration:
 $ npx sequelize-cli db:migrate
@@ -99,6 +99,26 @@ password: admin
 email: dgrindley3@hao123.com
 password: kbfFtT
 ```
+
+# Design and tecnologies
+
+## Backend
+
+**DATABASE:** MySql for development and SQLITE for testing database
+
+**ORM:** [Sequelize](https://sequelize.org/) is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. It features solid transaction support, relations, eager and lazy loading, read replication and more.
+
+**WEB FRAMEWORK:** [Express](https://expressjs.com/)
+
+![Backend diagram](diagrams/backend.png)
+
+**database** folder: migrations, table modeling, seeders
+
+**controllers**: authController, employeeController, reviewController
+
+**middlewares**: authenticateToken (verify Authorization header and token JWT), permission (Verify if user is admin to limit access to API's)
+
+**routes**: routing
 
 # Full Stack Developer Challenge
 

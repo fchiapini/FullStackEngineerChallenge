@@ -2,6 +2,10 @@ import employeeService from '../services/employeeService'
 import jwt from 'jsonwebtoken'
 
 export default {
+  /**
+   * WEB client authentication and return token JWT
+   *
+   */
   async login(req, res) {
     const { email, password } = req.body
 
@@ -21,6 +25,10 @@ export default {
     res.header('auth-token', token).send({ token })
   },
 
+  /**
+   *  After authentication WEB client call to retrieve employee information
+   *
+   */
   async me(req, res) {
     const { user } = req
     try {

@@ -1,5 +1,11 @@
 import jwt from 'jsonwebtoken'
 
+/**
+ * Check if authorization header with token is being sent in the request and
+ * validate based on TOKEN SECRET configured in the .env
+ *
+ */
+
 export function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]
