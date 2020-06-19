@@ -59,6 +59,8 @@ BASE_URL=http://localhost:5000/api
 
 Create a mysql database and configure the .env file with the database information as commented previously.
 
+### Build Setup
+
 ```bash
 # install dependencies
 $ npm install
