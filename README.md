@@ -120,6 +120,8 @@ password: kbfFtT
 
 **routes**: routing
 
+**services**: employeeService (Handle business logic and database calls regarding to employee information) and reviewService (Handle business logic and database calls regarding to review information)
+
 # Full Stack Developer Challenge
 
 This is an interview challengs. Please feel free to fork. Pull Requests will be ignored.
