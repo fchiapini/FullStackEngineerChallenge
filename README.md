@@ -156,6 +156,8 @@ There will not be a sign-up page. Only admin user can register new employees.
 
 Admin user can assign a new reviewer to any employee with blank feedback.
 
+Admin user can see and edit all reviews submitted to employee.
+
 ## **Standard employee**
 
 After successfully logged in, the standard employee will be able to see all pending reviews that required feedback.
