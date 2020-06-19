@@ -6,10 +6,7 @@ export default {
       const result = await reviewService.findAllReviews()
       res.json(result)
     } catch (error) {
-      res.status(500).json({
-        status: 'fail',
-        message: error,
-      })
+      res.sendStatus(500, error)
     }
   },
   async getReviewById(req, res) {
@@ -18,42 +15,45 @@ export default {
       const result = await reviewService.findReviewById(id)
       res.json(result)
     } catch (error) {
-      res.status(500).json({
-        status: 'fail',
-        message: error,
-      })
+      res.sendStatus(500, error)
     }
   },
   async getReviewsByRevieweeId(req, res) {
     try {
       const { revieweeId } = req.params
+      const { user } = req
+
+      if (!user.isAdmin && user.id != revieweeId)
+        res
+          .sendStatus(403)
+          .send('Forbidden! You only have access to your own reviews')
       const result = await reviewService.findReviewsByRevieweeId(revieweeId)
       res.json(result)
     } catch (error) {
-      res.status(500).json({
-        status: 'fail',
-        message: error,
-      })
+      res.sendStatus(500, error)
     }
   },
   async getReviewsByReviewerId(req, res) {
     try {
       const { reviewerId } = req.params
+      const { user } = req
+
+      if (!user.isAdmin && user.id != reviewerId)
+        res
+          .sendStatus(403)
+          .send('Forbidden! You only have access to your own reviews')
+
       const result = await reviewService.findReviewsByReviewerId(reviewerId)
       res.json(result)
     } catch (error) {
-      res.status(500).json({
-        status: 'fail',
-        message: error,
-      })
+      res.sendStatus(500, error)
     }
   },
   async createReview(req, res) {
     const newReview = req.body
     try {
-      reviewService
-        .create(newReview)
-        .then((createdReview) => res.json(createdReview))
+      const created = await reviewService.create(newReview)
+      res.json(created)
     } catch (error) {
       res.sendStatus(500, error)
     }
@@ -62,7 +62,8 @@ export default {
     const { id } = req.params
     const updatedReview = req.body
     try {
-      reviewService.update(id, updatedReview).then((review) => res.json(review))
+      const updated = await reviewService.update(id, updatedReview)
+      res.json(updated)
     } catch (error) {
       res.sendStatus(500, error)
     }

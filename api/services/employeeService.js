@@ -3,7 +3,9 @@ import db from '../database/models'
 export default {
   async findEmployeeById(id) {
     return await db.sequelize.transaction(async (t) => {
-      return await db.employee.findByPk(id)
+      return await db.employee.findByPk(id, {
+        attributes: { exclude: ['password_hash'] },
+      })
     })
   },
   async findAllEmployees() {

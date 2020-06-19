@@ -6,10 +6,7 @@ export default {
       const result = await employeeService.findAllEmployees()
       res.json(result)
     } catch (error) {
-      res.status(500).json({
-        status: 'fail',
-        message: error,
-      })
+      res.sendStatus(500, error)
     }
   },
   async getEmployeeById(req, res) {
@@ -18,18 +15,14 @@ export default {
       const result = await employeeService.findEmployeeById(id)
       res.json(result)
     } catch (error) {
-      res.status(500).json({
-        status: 'fail',
-        message: error,
-      })
+      res.sendStatus(500, error)
     }
   },
   async createEmployee(req, res) {
     const newEmployee = req.body
     try {
-      employeeService
-        .create(newEmployee)
-        .then((createdEmployee) => res.json(createdEmployee))
+      const created = await employeeService.create(newEmployee)
+      res.json(created)
     } catch (error) {
       res.sendStatus(500, error)
     }
@@ -38,9 +31,8 @@ export default {
     const { id } = req.params
     const updatedEmployee = req.body
     try {
-      employeeService
-        .update(id, updatedEmployee)
-        .then((employee) => res.json(employee))
+      const updated = await employeeService.update(id, updatedEmployee)
+      res.json(updated)
     } catch (error) {
       res.sendStatus(500, error)
     }
@@ -48,7 +40,8 @@ export default {
   async deleteEmployee(req, res) {
     const { id } = req.params
     try {
-      employeeService.delete(id).then(() => res.sendStatus(200))
+      await employeeService.delete(id)
+      res.sendStatus(200)
     } catch (error) {
       res.sendStatus(500, error)
     }

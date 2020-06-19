@@ -1,5 +1,3 @@
-import ReviewService from '@/services/ReviewService.js'
-
 export const state = () => ({
   reviewsAsReviewee: [],
   reviewsAsReviewer: []
@@ -30,34 +28,35 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchReviewsAsReviewee({ commit }, employeeId) {
-    return ReviewService.getReviewsByEmployeeIdAsReviewee(employeeId).then(
-      (response) => {
-        commit('SET_REVIEWS_AS_REVIEWEE', response.data)
-      }
+  async fetchReviewsAsReviewee({ commit }, employeeId) {
+    const response = await this.$axios.get(
+      `/employees/${employeeId}/reviewee-reviews`
     )
+    commit('SET_REVIEWS_AS_REVIEWEE', response.data)
   },
-  fetchReviewsAsReviewer({ commit }, employeeId) {
-    return ReviewService.getReviewsByEmployeeIdAsReviewer(employeeId).then(
-      (response) => {
-        commit('SET_REVIEWS_AS_REVIEWER', response.data)
-      }
+  async fetchReviewsAsReviewer({ commit }, employeeId) {
+    const response = await this.$axios.get(
+      `/employees/${employeeId}/reviewer-reviews`
     )
+    commit('SET_REVIEWS_AS_REVIEWER', response.data)
   },
-  createReview({ commit }, newReview) {
-    return ReviewService.create(newReview).then((response) => {
-      commit('ADD_REVIEW', response.data)
-    })
+  async createReview({ commit }, newReview) {
+    const response = await this.$axios.post('/reviews', newReview)
+    commit('ADD_REVIEW', response.data)
   },
-  updateReviewAsReviewee({ commit }, updatedReview) {
-    return ReviewService.update(updatedReview).then((response) => {
-      commit('UPDATE_REVIEW_AS_REVIEWEE', response.data)
-    })
+  async updateReviewAsReviewee({ commit }, updatedReview) {
+    const response = await this.$axios.put(
+      `/reviews/${updatedReview.id}`,
+      updatedReview
+    )
+    commit('UPDATE_REVIEW_AS_REVIEWEE', response.data)
   },
-  updateReviewAsReviewer({ dispatch, commit }, updatedReview) {
-    return ReviewService.update(updatedReview).then((response) => {
-      commit('UPDATE_REVIEW_AS_REVIEWER', response.data)
-      dispatch('fetchReviewsAsReviewer', updatedReview.reviewer.id)
-    })
+  async updateReviewAsReviewer({ dispatch, commit }, updatedReview) {
+    const response = await this.$axios.put(
+      `/reviews/${updatedReview.id}`,
+      updatedReview
+    )
+    commit('UPDATE_REVIEW_AS_REVIEWER', response.data)
+    dispatch('fetchReviewsAsReviewer', updatedReview.reviewer.id)
   }
 }

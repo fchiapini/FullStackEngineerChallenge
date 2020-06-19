@@ -66,10 +66,10 @@ describe('Update', () => {
 
     const newFeedback = 'Great communication and strong opinion.'
 
-    const updatedReview = await reviewService.update(
-      reviewToBeUpdated.id,
-      newFeedback
-    )
+    const updatedReview = await reviewService.update(reviewToBeUpdated.id, {
+      reviewer_id: savedReviewer.id,
+      feedback: newFeedback,
+    })
 
     expect(updatedReview.feedback).toBe(newFeedback)
   })

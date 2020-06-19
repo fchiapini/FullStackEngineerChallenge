@@ -1,5 +1,3 @@
-import EmployeeService from '@/services/EmployeeService.js'
-
 export const state = () => ({
   employees: [],
   employee: {}
@@ -30,29 +28,27 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchEmployees({ commit }) {
-    return EmployeeService.getEmployees().then((response) => {
-      commit('SET_EMPLOYEES', response.data)
-    })
+  async fetchEmployees({ commit }) {
+    const response = await this.$axios.get('/employees')
+    commit('SET_EMPLOYEES', response.data)
   },
-  fetchEmployee({ commit }, id) {
-    return EmployeeService.getEmployeeById(id).then((response) => {
-      commit('SET_EMPLOYEE', response.data)
-    })
+  async fetchEmployee({ commit }, id) {
+    const response = await this.$axios.get(`/employees/${id}`)
+    commit('SET_EMPLOYEE', response.data)
   },
-  createEmployee({ commit }, newEmployee) {
-    return EmployeeService.create(newEmployee).then((response) => {
-      commit('ADD_EMPLOYEE', response.data)
-    })
+  async createEmployee({ commit }, newEmployee) {
+    const response = await this.$axios.post('/employees', newEmployee)
+    commit('ADD_EMPLOYEE', response.data)
   },
-  updateEmployee({ commit }, updatedEmployee) {
-    return EmployeeService.update(updatedEmployee).then((response) => {
-      commit('UPDATE_EMPLOYEE', response.data)
-    })
+  async updateEmployee({ commit }, updatedEmployee) {
+    const response = await this.$axios.put(
+      `/employees/${updatedEmployee.id}`,
+      updatedEmployee
+    )
+    commit('UPDATE_EMPLOYEE', response.data)
   },
-  deleteEmployee({ commit }, deletedEmployee) {
-    return EmployeeService.delete(deletedEmployee.id).then((response) => {
-      commit('DELETE_EMPLOYEE', deletedEmployee)
-    })
+  async deleteEmployee({ commit }, deletedEmployee) {
+    await this.$axios.delete(`/employees/${deletedEmployee.id}`)
+    commit('DELETE_EMPLOYEE', deletedEmployee)
   }
 }

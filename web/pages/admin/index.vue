@@ -91,6 +91,8 @@
 import { mapState } from 'vuex'
 
 export default {
+  middleware: ['auth-admin'],
+
   async fetch({ store, error }) {
     try {
       await store.dispatch('employees/fetchEmployees')

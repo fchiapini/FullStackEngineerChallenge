@@ -1,5 +1,5 @@
 import express from 'express'
-import authRoutes from './routes/auth'
+import authRoutes from './routes/authRoutes'
 import routes from './routes/routes'
 import bodyParser from 'body-parser'
 import cors from 'cors'

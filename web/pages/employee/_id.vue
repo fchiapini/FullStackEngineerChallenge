@@ -66,6 +66,8 @@
 import { mapState } from 'vuex'
 
 export default {
+  middleware: ['auth'],
+
   async fetch({ store, error, params }) {
     try {
       await store.dispatch('employees/fetchEmployee', params.id)

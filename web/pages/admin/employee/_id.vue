@@ -74,6 +74,8 @@
 import { mapState } from 'vuex'
 
 export default {
+  middleware: ['auth'],
+
   async fetch({ store, error, params }) {
     try {
       await store.dispatch('employees/fetchEmployee', params.id)
@@ -172,6 +174,10 @@ export default {
         } catch (e) {}
       }
       this.close()
+    },
+
+    async logout() {
+      await this.$auth.logout()
     }
   }
 }

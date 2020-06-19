@@ -18,6 +18,16 @@ export default {
       { expiresIn: '1800s' }
     )
 
-    res.header('auth-token', token).send(token)
+    res.header('auth-token', token).send({ token })
+  },
+
+  async me(req, res) {
+    const { user } = req
+    try {
+      const employee = await employeeService.findEmployeeById(user.id)
+      res.json({ data: employee })
+    } catch (error) {
+      res.sendStatus(500, error.message)
+    }
   },
 }
