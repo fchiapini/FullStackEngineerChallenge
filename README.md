@@ -144,6 +144,22 @@ password: kbfFtT
 
 ![Frontend diagram](diagrams/frontend.png)
 
+# Assumptions
+
+## **Admin user**
+
+After successfully logged in user admin will be redirected to employee management where it will be possible to create a new employee, update any information such as name, position, email, and password.
+
+There will not be a sign-up page. Only admin user can register new employees.
+
+Admin user can assign a new reviewer to any employee with blank feedback.
+
+## **Standard employee**
+
+After successfully logged in, the standard employee will be able to see all pending reviews that required feedback.
+
+Once submitted the review will not be seen in the datatable.
+
 # Full Stack Developer Challenge
 
 This is an interview challengs. Please feel free to fork. Pull Requests will be ignored.
