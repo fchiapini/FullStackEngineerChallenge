@@ -4,7 +4,7 @@
 
 ### Environment variables
 
-#### Development
+#### Development Backend
 
 Create a .env variable at the root's folder project:
 
@@ -35,6 +35,14 @@ DB_PASSWORD=null
 DB_NAME=database_development
 DB_DIALECT=sqlite
 DB_STORAGE=./tests/database.sqlite
+```
+
+#### Development Frontend
+
+Create a .env variable at the web's folder:
+
+```
+BASE_URL=http://localhost:5000/api
 ```
 
 #### [Node](https://nodejs.org/en/) 12.18.0+
@@ -72,6 +80,24 @@ $ npm install
 
 # serve with hot reload at localhost:3000
 $ npm run dev
+```
+
+## Users's example
+
+After populating the database there will be available users to login:
+
+### Admin user:
+
+```
+email: admin@admin.com
+password: admin
+```
+
+### Standard employee:
+
+```
+email: dgrindley3@hao123.com
+password: kbfFtT
 ```
 
 # Full Stack Developer Challenge
