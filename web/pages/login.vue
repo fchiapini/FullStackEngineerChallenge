@@ -78,7 +78,7 @@ export default {
           else this.$router.push(`/employee/${this.$auth.user.id}`)
         } catch (e) {
           this.$nuxt.$loading.finish()
-          alert(e.response.data.message)
+          console.log(e.message)
         }
       }
     }
