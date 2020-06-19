@@ -1,5 +1,11 @@
 # Project setup
 
+login url:
+
+```
+127.0.0.1:3000/login
+```
+
 ## Prerequisites
 
 ### Environment variables
@@ -110,6 +116,8 @@ password: kbfFtT
 
 **WEB FRAMEWORK:** [Express](https://expressjs.com/)
 
+**Testing framework:** [Jest](https://jestjs.io/)
+
 ![Backend diagram](diagrams/backend.png)
 
 **database** folder: migrations, table modeling, seeders
@@ -121,6 +129,20 @@ password: kbfFtT
 **routes**: routing
 
 **services**: employeeService (Handle business logic and database calls regarding to employee information) and reviewService (Handle business logic and database calls regarding to review information)
+
+**tests**: Unit service tests
+
+## Frontend
+
+**Frontend framework:** [Nuxtjs](https://nuxtjs.org/) Vue Framework
+
+**Component framework:** [Vuetify](https://vuetifyjs.com) Material Design Component Framework
+
+**HTTP library:** [Axios](https://axios.nuxtjs.org/)
+
+**Auth module:** [Auth Module](https://auth.nuxtjs.org/)
+
+![Frontend diagram](diagrams/frontend.png)
 
 # Full Stack Developer Challenge
 
